@@ -3,458 +3,627 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub EdTech Biomedicina | Portal Multimateria</title>
+  <title>Hub de Aprendizaje Biomedicina | EdTech</title>
 
-  <!-- Importación Tipográfica de Identidad Visual -->
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* Variables de Estilo por Asignatura (Manual de Identidad Visual) */
+    /* VARIABLES BASE Y TEMAS POR PORTADA */
     :root {
-      /* Fondo Neutro Limpio y Profesional */
-      --bg-principal: #F4F6F8;
-      --bg-card: #FFFFFF;
-      --texto-main: #1E293B;
-      --border-color: #CBD5E1;
-
-      /* Paleta Fisiopatología por Defecto */
-      --primary-color: #0E5E45;    /* Verde Esmeralda Académico */
-      --accent-color: #9C7328;     /* Bronce / Dorado Rico */
-      --soft-bg: #F1F6F3;          /* Menta Suave */
-      
       --font-title: 'Playfair Display', serif;
       --font-ui: 'Plus Jakarta Sans', sans-serif;
+      --bg-outside: #E3E8EC;
+      --bg-hub: #FFFFFF;
+      --border-outer: #D1D5DB;
     }
 
-    /* Temas Cromáticos Dinámicos por Materia */
+    /* 1. FISIOPATOLOGÍA (PORTADA) */
     body[data-materia="fisiopatologia"] {
-      --primary-color: #0E5E45;
-      --accent-color: #9C7328;
-      --soft-bg: #F1F6F3;
+      --bg-outside: #E8EFEB;
+      --primary: #0B4632;        /* Verde Pino Portada */
+      --accent: #8C733E;         /* Dorado Ocre */
+      --bg-soft: #F2F7F4;        /* Fondo claro verde tenue */
+      --card-border: #C8D8CE;
     }
 
+    /* 2. PATOLOGÍA CLÍNICA II (PORTADA) */
     body[data-materia="patologia"] {
-      --primary-color: #14345C;    /* Azul Zafiro Profundo */
-      --accent-color: #475569;     /* Gris Acerado */
-      --soft-bg: #F0F4F8;          /* Azul Hielo Suave */
+      --bg-outside: #EBF0F5;
+      --primary: #0A1D37;        /* Azul Marino Oscuro Portada */
+      --accent: #536B88;         /* Azul Acero */
+      --bg-soft: #F0F4F8;        /* Fondo frío tenue */
+      --card-border: #C2D1E0;
     }
 
+    /* 3. HISTOLOGÍA HUMANA (PORTADA) */
     body[data-materia="histologia"] {
-      --primary-color: #4A121A;    /* Borgoña / Vino Tinto */
-      --accent-color: #C5A059;     /* Dorado Antiguo */
-      --soft-bg: #FDFBF7;          /* Marfil Suave */
+      --bg-outside: #F7EFEF;
+      --primary: #9E4B56;        /* Borgoña/Rosa Viejo Portada */
+      --accent: #7D5860;         /* Malva Oscuro */
+      --bg-soft: #FAF2F3;        /* Fondo rosado tenue */
+      --card-border: #E8CFD3;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg-principal);
+      background-color: var(--bg-outside);
       font-family: var(--font-ui);
-      color: var(--texto-main);
+      color: #1E293B;
       min-height: 100vh;
-      padding: 30px 20px;
+      padding: 20px;
       display: flex;
       justify-content: center;
-      transition: all 0.3s ease;
+      align-items: center;
+      transition: background-color 0.4s ease;
     }
 
-    .hub-container {
+    /* LIENZO PRINCIPAL CON BORDES ESTILO MARCO ACADÉMICO */
+    .hub-card {
       width: 100%;
-      max-width: 1200px;
-      background-color: var(--bg-card);
+      max-width: 1100px;
+      background: var(--bg-hub);
+      border: 1px solid var(--border-outer);
       border-radius: 12px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       padding: 35px 45px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
       position: relative;
     }
 
-    /* Cabecera e Selector de Materia */
-    .header-bar {
+    .hub-card::before {
+      content: "";
+      position: absolute;
+      top: 12px; left: 12px; right: 12px; bottom: 12px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* ENCABEZADO INSTITUCIONAL */
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1.5px solid var(--border-color);
-      padding-bottom: 20px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 15px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+      margin-bottom: 25px;
     }
 
-    .brand-title {
-      font-size: 0.85rem;
+    .brand-top {
+      font-size: 0.75rem;
       font-weight: 800;
-      letter-spacing: 2px;
-      color: var(--primary-color);
+      letter-spacing: 1.5px;
+      color: var(--primary);
       text-transform: uppercase;
     }
 
-    .selector-materia select {
-      padding: 8px 16px;
-      font-family: var(--font-ui);
+    .institution-top {
+      font-size: 0.75rem;
       font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--primary-color);
-      border: 1.5px solid var(--primary-color);
-      border-radius: 6px;
-      background: var(--soft-bg);
-      cursor: pointer;
+      color: #64748B;
+      text-align: right;
     }
 
-    /* Hero Section */
-    .hero-section {
+    /* HERO: TITULAR Y DESCRIPCIÓN SEGÚN MATERIA */
+    .hero-box {
       text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .semestre-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-title);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-top: 6px;
+    }
+
+    /* SELECTOR DE ASIGNATURA Y MATRÍCULA */
+    .control-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: var(--bg-soft);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 18px 25px;
+      margin-bottom: 30px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .control-panel { grid-template-columns: 1fr; }
+    }
+
+    .panel-group label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .panel-group select, .panel-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: #FFFFFF;
+    }
+
+    /* BOTONES DE ACCESO DESTACADOS (DREAMLAB & ANTOLOGÍA) */
+    .access-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       margin-bottom: 40px;
     }
 
-    .hero-section h1 {
-      font-family: var(--font-title);
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      color: var(--primary-color);
-      font-weight: 800;
+    @media (max-width: 768px) {
+      .access-actions { grid-template-columns: 1fr; }
     }
 
-    .hero-section p {
-      font-family: var(--font-title);
-      font-style: italic;
-      color: var(--accent-color);
-      font-size: 1.2rem;
-      margin-top: 5px;
-    }
-
-    /* Sección de Autenticación de Estudiante */
-    .auth-box {
-      background: var(--soft-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 500px;
-      margin: 0 auto 40px auto;
-      text-align: center;
-    }
-
-    .auth-box label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--primary-color);
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .auth-input-group {
+    .btn-access {
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 22px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
     }
 
-    .auth-input-group input {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-family: var(--font-ui);
-      font-size: 0.95rem;
-      text-align: center;
+    .btn-access.dreamlab {
+      background: var(--primary);
+      color: #FFFFFF;
+      border: 1px solid var(--primary);
     }
 
-    .btn-auth {
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
+    .btn-access.antologia {
+      background: #FFFFFF;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-access:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+    }
+
+    .btn-title {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-sub {
+      font-size: 0.75rem;
       font-weight: 700;
-      border-radius: 6px;
-      cursor: pointer;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      opacity: 0.85;
     }
 
-    /* Grid de Módulos Inmersivos */
-    .interactive-grid {
+    /* SECCIÓN DE MÓDULOS INTERACTIVOS (LLAVERO & TARJETERO) */
+    .interactive-section {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 30px;
-      margin-bottom: 40px;
-    }
-
-    @media (max-width: 900px) {
-      .interactive-grid { grid-template-columns: 1fr; }
-    }
-
-    .panel-box {
-      background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    }
-
-    .panel-box h3 {
-      font-family: var(--font-title);
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      border-bottom: 2px solid var(--soft-bg);
-      padding-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    /* LLAVERO DIGITAL INMERSIVO (Aro y Candados) */
-    .keyring-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .key-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--soft-bg);
-      border: 1.5px solid var(--border-color);
-      border-left: 5px solid var(--accent-color);
-      padding: 12px 18px;
-      border-radius: 8px;
-      transition: transform 0.2s ease;
-    }
-
-    .key-item:hover { transform: translateX(5px); }
-
-    .key-info { display: flex; align-items: center; gap: 12px; }
-    .key-icon { font-size: 1.6rem; }
-    .key-label { font-weight: 700; font-size: 0.9rem; color: var(--texto-main); }
-    .key-sub { font-size: 0.75rem; color: #64748B; }
-
-    .key-code {
-      font-family: monospace;
-      background: #FFFFFF;
-      border: 1px dashed var(--accent-color);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 800;
-      color: var(--primary-color);
-      letter-spacing: 1px;
-    }
-
-    /* TARJETERO DIGITAL DE PASES DE SALIDA */
-    .card-holder {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .exit-ticket {
-      background: linear-gradient(135deg, #FFFFFF 0%, var(--soft-bg) 100%);
-      border: 1px solid var(--accent-color);
-      border-radius: 8px;
-      padding: 15px;
-      position: relative;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-    }
-
-    .exit-ticket::before {
-      content: "PASS";
-      position: absolute;
-      right: 15px; top: 15px;
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: var(--accent-color);
-      opacity: 0.5;
-    }
-
-    .ticket-title { font-weight: 800; font-size: 0.85rem; color: var(--primary-color); }
-    .ticket-status { font-size: 0.8rem; margin-top: 5px; color: #475569; }
-
-    /* Botones de Plataformas */
-    .platform-links {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
       margin-bottom: 30px;
     }
 
-    .btn-platform {
-      display: block;
+    @media (max-width: 850px) {
+      .interactive-section { grid-template-columns: 1fr; }
+    }
+
+    .interactive-card {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 25px;
       text-align: center;
-      padding: 15px;
-      background: var(--primary-color);
-      color: #FFF;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      border-radius: 8px;
-      transition: opacity 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
 
-    .btn-platform.alt {
-      background: transparent;
-      color: var(--primary-color);
-      border: 2px solid var(--primary-color);
+    .interactive-card h3 {
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: 15px;
     }
 
-    .btn-platform:hover { opacity: 0.9; }
+    /* 1. BOTÓN ARGOLLA 3D (LLAVERO CON ENLACE A IMGUR) */
+    .keychain-trigger-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      margin: 15px 0;
+    }
 
-    .footer {
-      border-top: 1px solid var(--border-color);
-      padding-top: 20px;
+    .ring-button {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--accent);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ring-button:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+    }
+
+    .ring-button:active {
+      transform: scale(0.95);
+    }
+
+    .ring-button img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .trigger-label {
       font-size: 0.75rem;
-      color: #64748B;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .keys-drawer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+      opacity: 0;
+      text-align: left;
+    }
+
+    .keys-drawer.open {
+      max-height: 400px;
+      opacity: 1;
+      margin-top: 20px;
+    }
+
+    .key-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--bg-soft);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+
+    .key-code {
+      font-family: monospace;
+      font-weight: 800;
+      background: #FFFFFF;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px dashed var(--accent);
+      color: var(--primary);
+    }
+
+    /* 2. BOLETO/TICKET INTERACTIVO (TARJETERO DE PASES) */
+    .ticket-container {
+      margin: 15px 0;
+    }
+
+    .ticket-main {
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--bg-soft) 100%);
+      border: 2px dashed var(--accent);
+      border-radius: 10px;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+    }
+
+    .ticket-body {
+      padding: 18px;
+      flex: 1;
+      text-align: left;
+    }
+
+    .ticket-head {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .ticket-title {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .ticket-stub {
+      width: 80px;
+      background: var(--primary);
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border-left: 2px dashed #FFFFFF;
+      transition: background 0.2s;
+    }
+
+    .ticket-stub:hover {
+      background: var(--accent);
+    }
+
+    .stub-text {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .passes-drawer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+      opacity: 0;
+      text-align: left;
+    }
+
+    .passes-drawer.open {
+      max-height: 400px;
+      opacity: 1;
+      margin-top: 20px;
+    }
+
+    .pass-item {
+      padding: 10px 14px;
+      background: var(--bg-soft);
+      border-left: 4px solid var(--primary);
+      border-radius: 4px;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+
+    /* FOOTER CON FIRMA */
+    .footer-bar {
+      border-top: 1px solid var(--card-border);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #64748B;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .author-name {
+      font-weight: 700;
+      color: var(--primary);
     }
   </style>
 </head>
 <body data-materia="fisiopatologia">
 
-  <div class="hub-container">
+  <div class="hub-card">
     
-    <!-- Cabecera Institucional y Selector de Materia -->
-    <header class="header-bar">
-      <div class="brand-title">EdTech & Biomedical Learning Systems</div>
-      
-      <div class="selector-materia">
-        <select id="materiaSelect" onchange="cambiarMateria(this.value)">
-          <option value="fisiopatologia">Fisiopatología</option>
-          <option value="patologia">Patología Clínica</option>
-          <option value="histologia">Histología</option>
-        </select>
+    <!-- Encabezado Institucional -->
+    <header class="header-top">
+      <div class="brand-top">PORTAL DE ACCESOS </div>
+      <div class="institution-top">
+        <b>UNIVERSIDAD AUTÓNOMA DE SINALOA</b><br>
+        Facultad de Ciencias Naturales y Exactas • Licenciatura en Biomedicina • Adriana Alicia Barrios Rodríguez
       </div>
     </header>
 
-    <!-- Titular Principal del Hub -->
-    <section class="hero-section">
-      <h1 id="tituloMateria">Fisiopatología</h1>
-      <p id="subtituloMateria">Portal Central de Acceso y Gestión de Claves Academicas</p>
+    <!-- Titular de la Asignatura -->
+    <section class="hero-box">
+      <div class="semestre-badge" id="badgeSemestre">Tercer Semestre • Eje Básico Disciplinar</div>
+      <h1 class="hero-title" id="titleMateria">FISIOPATOLOGÍA</h1>
+      <p class="hero-subtitle" id="subMateria">Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad</p>
     </section>
 
-    <!-- Autenticación de Alumno por Matrícula -->
-    <section class="auth-box">
-      <label for="studentId">Consulta tu Llavero y Tarjetero</label>
-      <div class="auth-input-group">
-        <input type="text" id="studentId" placeholder="Ingresa tu Matrícula (Ej. 12345678)">
-        <button class="btn-auth" onclick="consultarCredenciales()">INGRESAR</button>
+    <!-- Control: Selección de Asignatura y Matrícula -->
+    <section class="control-panel">
+      <div class="panel-group">
+        <label for="selectMateria">Seleccionar Asignatura</label>
+        <select id="selectMateria" onchange="actualizarMateria(this.value)">
+          <option value="fisiopatologia">Fisiopatología</option>
+          <option value="patologia">Patología Clínica II</option>
+          <option value="histologia">Histología Humana</option>
+        </select>
+      </div>
+
+      <div class="panel-group">
+        <label for="inputMatricula">Matrícula del Estudiante</label>
+        <input type="text" id="inputMatricula" placeholder="Ingresa tu matrícula para sincronizar..." oninput="sincronizarMatricula(this.value)">
       </div>
     </section>
 
-    <!-- Accesos Directos a Entornos -->
-    <div class="platform-links">
-      <a href="#" class="btn-platform">ACCEDER A DREAMLAB / MOODLE</a>
-      <a href="#" class="btn-platform alt" id="btnAntologia">ABRIR ANTOLOGÍA DE FISIOPATOLOGÍA</a>
-    </div>
+    <!-- Botones Principales de Acceso -->
+    <section class="access-actions">
+      <a href="https://dreamlab.uas.edu.mx" target="_blank" class="btn-access dreamlab">
+        <span class="btn-title">DREAMLAB</span>
+        <span class="btn-sub">Plataforma e Interacciones Virtuales</span>
+      </a>
 
-    <!-- Módulos Inmersivos (Llavero + Tarjetero) -->
-    <div class="interactive-grid">
+      <a href="#" id="linkAntologia" class="btn-access antologia">
+        <span class="btn-title">ANTOLOGÍA DIGITAL</span>
+        <span class="btn-sub" id="subBtnAntologia">Lecturas de Fisiopatología</span>
+      </a>
+    </section>
+
+    <!-- Módulos Interactivos: Llavero 3D y Tarjetero Boleto -->
+    <section class="interactive-section">
       
-      <!-- Llavero Digital Inmersivo -->
-      <div class="panel-box">
-        <h3>Llavero Digital <span>🔑</span></h3>
-        <p style="font-size: 0.85rem; color: #64748B;">Llaves obtenidas al completar los SCORM en Moodle para abrir las lecturas en la Antología.</p>
-        
-        <div class="keyring-container" id="llaveroContenedor">
-          <div class="key-item">
-            <div class="key-info">
-              <span class="key-icon">🔓</span>
-              <div>
-                <div class="key-label">Tema 1: Introducción</div>
-                <div class="key-sub">Acceso Libre</div>
-              </div>
-            </div>
+      <!-- Llavero Digital con Botón Argolla cargado desde Imgur -->
+      <div class="interactive-card">
+        <h3>Llavero Digital</h3>
+        <p style="font-size: 0.8rem; color: #64748B;">Presiona la argolla con el colgante de ADN para desplegar tus llaves obtenidas.</p>
+
+        <div class="keychain-trigger-container" onclick="toggleLlavero()">
+          <div class="ring-button">
+            <!-- REEMPLAZA ESTA URL POR TU ENLACE DIRECTO DE IMGUR (ej. https://i.imgur.com/abcdef.gif) -->
+            <img src="https://i.imgur.com/TU_CODIGO_AQUI.gif" alt="Argolla Llavero ADN 3D" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%230B4632\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'9\'/><path d=\'M12 7v10M7 12h10\'/></svg>'">
+          </div>
+          <span class="trigger-label">🔑 ACCIONAR LLAVERO</span>
+        </div>
+
+        <div class="keys-drawer" id="drawerLlavero">
+          <div class="key-row">
+            <span>Tema 1: Introducción</span>
             <span class="key-code">LIBRE</span>
           </div>
-
-          <div class="key-item">
-            <div class="key-info">
-              <span class="key-icon">🔑</span>
-              <div>
-                <div class="key-label">Tema 2: Respuesta Celular</div>
-                <div class="key-sub">Generado vía SCORM</div>
-              </div>
-            </div>
-            <span class="key-code">ANATOMIA2026</span>
+          <div class="key-row">
+            <span>Tema 2: Mecanismos Celulares</span>
+            <span class="key-code">FISIO2026</span>
           </div>
-
-          <div class="key-item" style="opacity: 0.6;">
-            <div class="key-info">
-              <span class="key-icon">🔒</span>
-              <div>
-                <div class="key-label">Tema 3: Inflamación</div>
-                <div class="key-sub">Completa la actividad en Moodle</div>
-              </div>
-            </div>
-            <span class="key-code">BLOQUEADO</span>
+          <div class="key-row" style="opacity: 0.6;">
+            <span>Tema 3: Modelos Tisulares</span>
+            <span class="key-code">🔒 BLOQUEADO</span>
           </div>
         </div>
       </div>
 
-      <!-- Tarjetero Digital (Pases de Salida) -->
-      <div class="panel-box">
-        <h3>Tarjetero de Pases <span>🎟️</span></h3>
-        <p style="font-size: 0.85rem; color: #64748B;">Tarjetas de acreditación emitidas por la Antología al finalizar cada unidad de lectura.</p>
-        
-        <div class="card-holder" id="tarjeteroContenedor">
-          <div class="exit-ticket">
-            <div class="ticket-title">PASE DE SALIDA - TEMA 1</div>
-            <div class="ticket-status">✓ Acreditado el 10/08/2026 10:30 AM</div>
-          </div>
+      <!-- Tarjetero Digital estilo Boleto / Ticket -->
+      <div class="interactive-card">
+        <h3>Pases de Salida</h3>
+        <p style="font-size: 0.8rem; color: #64748B;">Haz clic en la pestaña lateral desprendible para consultar tu tarjetero.</p>
 
-          <div class="exit-ticket">
-            <div class="ticket-title">PASE DE SALIDA - TEMA 2</div>
-            <div class="ticket-status">✓ Acreditado el 11/08/2026 09:15 AM</div>
+        <div class="ticket-container">
+          <div class="ticket-main">
+            <div class="ticket-body">
+              <div class="ticket-head">TARJETERO DE PASES DIGITALES</div>
+              <div class="ticket-title" id="ticketMateriaName">Fisiopatología</div>
+              <div style="font-size: 0.75rem; color: #64748B; margin-top: 4px;">Colección de Acreditaciones de Lectura</div>
+            </div>
+            <div class="ticket-stub" onclick="toggleTarjetero()">
+              <span class="stub-text">DESPRENDER</span>
+            </div>
           </div>
+        </div>
 
-          <div class="exit-ticket" style="border-style: dashed; opacity: 0.6;">
-            <div class="ticket-title">PASE DE SALIDA - TEMA 3</div>
-            <div class="ticket-status">⏳ Lectura pendiente en la Antología</div>
+        <div class="passes-drawer" id="drawerTarjetero">
+          <div class="pass-item">
+            <b>🎟️ Pase Tema 1</b> — Acreditado (Fecha: 10/Ago/2026)
+          </div>
+          <div class="pass-item">
+            <b>🎟️ Pase Tema 2</b> — Acreditado (Fecha: 11/Ago/2026)
+          </div>
+          <div class="pass-item" style="opacity: 0.5; border-left-color: #94A3B8;">
+            <b>🎟️ Pase Tema 3</b> — Pendiente de lectura en Antología
           </div>
         </div>
       </div>
 
-    </div>
+    </section>
 
-    <!-- Pie y Créditos -->
-    <footer class="footer">
-      <div>Autora: <b>M.C. Adriana Alicia Barrios Rodríguez</b></div>
-      <div>UAS | Facultad de Medicina</div>
+    <!-- Pie de Página -->
+    <footer class="footer-bar">
+      <div>Diseñado y desarrollado con 💕 por: <span class="author-name">M.C. Adriana Alicia Barrios Rodríguez</span></div>
+      <div><b>EDTECH & BIOMEDICAL LEARNING SYSTEMS</b></div>
     </footer>
 
   </div>
 
   <script>
-    // Cambio dinámico de identidad visual según la Materia seleccionada (Manual)
-    function cambiarMateria(materia) {
-      document.body.setAttribute('data-materia', materia);
-      
-      const titulo = document.getElementById('tituloMateria');
-      const btnAnt = document.getElementById('btnAntologia');
-
-      if(materia === 'fisiopatologia') {
-        titulo.innerText = "Fisiopatología";
-        btnAnt.innerText = "ABRIR ANTOLOGÍA DE FISIOPATOLOGÍA";
-      } else if(materia === 'patologia') {
-        titulo.innerText = "Patología Clínica";
-        btnAnt.innerText = "ABRIR ANTOLOGÍA DE PATOLOGÍA CLÍNICA";
-      } else if(materia === 'histologia') {
-        titulo.innerText = "Histología";
-        btnAnt.innerText = "ABRIR ANTOLOGÍA DE HISTOLOGÍA";
+    // Datos de portadas oficializados
+    const materiasData = {
+      fisiopatologia: {
+        semestre: "Tercer Semestre • Eje Básico Disciplinar",
+        titulo: "FISIOPATOLOGÍA",
+        subtitulo: "Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad",
+        antologiaText: "Lecturas de Fisiopatología"
+      },
+      patologia: {
+        semestre: "Noveno Semestre • Clave 9175",
+        titulo: "PATOLOGÍA CLÍNICA II",
+        subtitulo: "Diagnóstico de Laboratorio Hematológico y Metabólico",
+        antologiaText: "Lecturas de Patología Clínica II"
+      },
+      histologia: {
+        semestre: "Tercer Semestre • Eje Básico Disciplinar",
+        titulo: "HISTOLOGÍA HUMANA",
+        subtitulo: "Organización Microscópica, Tejidos Básicos y Microambiente Tisular",
+        antologiaText: "Lecturas de Histología Humana"
       }
+    };
+
+    function actualizarMateria(materiaKey) {
+      document.body.setAttribute('data-materia', materiaKey);
+      const data = materiasData[materiaKey];
+      
+      document.getElementById('badgeSemestre').innerText = data.semestre;
+      document.getElementById('titleMateria').innerText = data.titulo;
+      document.getElementById('subMateria').innerText = data.subtitulo;
+      document.getElementById('subBtnAntologia').innerText = data.antologiaText;
+      document.getElementById('ticketMateriaName').innerText = data.titulo;
     }
 
-    function consultarCredenciales() {
-      const mat = document.getElementById('studentId').value.trim();
-      if(!mat) {
-        alert("Por favor ingresa tu matrícula.");
-        return;
-      }
-      alert("Consultando el Llavero y Tarjetero de la matrícula: " + mat);
-      // Aquí se conectará la consulta al Apps Script centralizado
+    function toggleLlavero() {
+      const drawer = document.getElementById('drawerLlavero');
+      drawer.classList.toggle('open');
+    }
+
+    function toggleTarjetero() {
+      const drawer = document.getElementById('drawerTarjetero');
+      drawer.classList.toggle('open');
+    }
+
+    function sincronizarMatricula(val) {
+      console.log("Matrícula ingresada:", val);
     }
   </script>
-
 </body>
 </html>
