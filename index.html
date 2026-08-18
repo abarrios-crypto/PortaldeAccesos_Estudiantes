@@ -183,7 +183,29 @@
       outline: none;
       transition: border-color 0.2s;
     }
+/* 🆕 Agrupador de campo de texto y botón de búsqueda */
+    .input-button-group {
+      display: flex;
+      gap: 8px;
+    }
 
+    .btn-buscar {
+      padding: 12px 22px;
+      border-radius: 50px;
+      border: none;
+      background: var(--primary);
+      color: #FFFFFF;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .btn-buscar:hover {
+      opacity: 0.9;
+    }
     /* BOTONES DE ACCESO */
     .access-actions {
       display: grid;
@@ -548,9 +570,12 @@
       </div>
 
       <div class="panel-group">
-        <label for="inputMatricula">Matrícula del Estudiante</label>
-        <input type="text" id="inputMatricula" placeholder="Ingresa tu matrícula para sincronizar..." oninput="sincronizarMatricula(this.value)">
-      </div>
+  <label for="inputMatricula">Matrícula del Estudiante</label>
+  <div class="input-button-group">
+    <input type="text" id="inputMatricula" placeholder="Ej. 98001" onkeydown="alPresionarEnter(event)">
+    <button type="button" class="btn-buscar" onclick="sincronizarMatricula()">Buscar 🔍</button>
+  </div>
+</div>
     </section>
 
     <!-- Botones Principales con Enlaces Reales -->
@@ -700,9 +725,22 @@ function toggleTarjetero() {
 }
 
 // 🔄 Sincronización en tiempo real con la matrícula
-async function sincronizarMatricula(val) {
-  const matricula = val.trim();
-  if (matricula.length < 4) return; // Espera a ingresar la matrícula completa
+// Detecta la tecla Enter en el cuadro de texto
+function alPresionarEnter(event) {
+  if (event.key === 'Enter') {
+    sincronizarMatricula();
+  }
+}
+
+// Petición al servidor GAS al hacer clic o dar Enter
+async function sincronizarMatricula() {
+  const input = document.getElementById('inputMatricula');
+  const matricula = input.value.trim();
+
+  if (!matricula) {
+    alert("Por favor, ingresa tu matrícula antes de consultar.");
+    return;
+  }
 
   try {
     const url = `${URL_GAS}?accion=obtenerEstudiante&matricula=${encodeURIComponent(matricula)}`;
@@ -711,12 +749,14 @@ async function sincronizarMatricula(val) {
 
     if (datos.status === "success" && datos.estudiante) {
       actualizarLlaveroYTarjetero(datos.estudiante);
+    } else {
+      alert("No se encontró información para la matrícula ingresada.");
     }
   } catch (error) {
-    console.error("Error al consultar la matrícula en el servidor:", error);
+    console.error("Error al consultar la matrícula:", error);
+    alert("Ocurrió un error al conectar con el servidor.");
   }
 }
-
 // 🎨 Renderizado dinámico de Llaves y Pases
 function actualizarLlaveroYTarjetero(estudiante) {
   // 🔑 Actualizar Llavero Digital
