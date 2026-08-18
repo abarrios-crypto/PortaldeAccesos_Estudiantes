@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub de Aprendizaje Biomedicina | EdTech</title>
+  <title>Portal de Accesos | Clases | Adriana Barrios </title>
 
-  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* VARIABLES BASE Y TEMAS POR PORTADA */
     :root {
       --font-title: 'Playfair Display', serif;
       --font-ui: 'Plus Jakarta Sans', sans-serif;
@@ -20,7 +19,6 @@
       --border-outer: #D1D5DB;
     }
 
-    /* 1. FISIOPATOLOGÍA */
     body[data-materia="fisiopatologia"] {
       --bg-outside: #E8EFEB;
       --primary: #0B4632;
@@ -29,7 +27,6 @@
       --card-border: #C8D8CE;
     }
 
-    /* 2. PATOLOGÍA CLÍNICA II */
     body[data-materia="patologia"] {
       --bg-outside: #EBF0F5;
       --primary: #0A1D37;
@@ -38,7 +35,6 @@
       --card-border: #C2D1E0;
     }
 
-    /* 3. HISTOLOGÍA HUMANA */
     body[data-materia="histologia"] {
       --bg-outside: #F7EFEF;
       --primary: #9E4B56;
@@ -58,10 +54,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: background-color 0.4s ease;
+      transition: background-color 0.5s ease;
+      perspective: 1200px;
     }
 
-    /* LIENZO PRINCIPAL */
     .hub-card {
       width: 100%;
       max-width: 1100px;
@@ -69,7 +65,7 @@
       border: 1px solid var(--border-outer);
       border-radius: 28px;
       padding: 32px 28px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
       position: relative;
     }
 
@@ -82,7 +78,6 @@
       pointer-events: none;
     }
 
-    /* ENCABEZADO INSTITUCIONAL */
     .header-top {
       display: flex;
       justify-content: space-between;
@@ -109,11 +104,7 @@
       text-align: right;
     }
 
-    /* HERO: TITULAR Y DESCRIPCIÓN */
-    .hero-box {
-      text-align: center;
-      margin-bottom: 28px;
-    }
+    .hero-box { text-align: center; margin-bottom: 28px; }
 
     .semestre-badge {
       display: inline-block;
@@ -146,7 +137,6 @@
       margin-top: 6px;
     }
 
-    /* CONTROL PANEL */
     .control-panel {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -156,7 +146,6 @@
       border-radius: 24px;
       padding: 18px 20px;
       margin-bottom: 28px;
-      align-items: center;
     }
 
     .panel-group label {
@@ -181,13 +170,15 @@
       color: var(--primary);
       background: #FFFFFF;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
     }
-/* 🆕 Agrupador de campo de texto y botón de búsqueda */
-    .input-button-group {
-      display: flex;
-      gap: 8px;
+
+    .panel-group select:focus, .panel-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(11, 70, 50, 0.12);
     }
+
+    .input-button-group { display: flex; gap: 8px; }
 
     .btn-buscar {
       padding: 12px 22px;
@@ -200,13 +191,93 @@
       font-weight: 800;
       cursor: pointer;
       white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .btn-buscar:hover {
-      opacity: 0.9;
+    .btn-buscar:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+    .btn-buscar:active { transform: scale(0.95); }
+
+    /* ESTILO EDITORIAL Y ALINEACIÓN DE BANNER */
+    .student-banner {
+      margin-top: 14px;
+      padding: 4px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: popInSmooth 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
-    /* BOTONES DE ACCESO */
+
+    .student-banner.success {
+      background: transparent;
+      border: none;
+    }
+
+    .welcome-container {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-shrink: 1;
+    }
+
+    .greeting-text {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #64748B;
+      white-space: nowrap;
+    }
+
+    .student-name-editorial {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: baseline;
+    }
+
+    .drop-cap {
+      font-family: var(--font-title);
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 0.7;
+      margin-right: 1px;
+      display: inline-block;
+    }
+
+    .student-banner .status-tag {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      margin-left: auto; /* Empuja el chip siempre hacia la derecha */
+      white-space: nowrap;
+    }
+
+    .student-banner.error { 
+      background: #FEF2F2; 
+      border: 1.5px solid #FCA5A5; 
+      border-radius: 50px;
+      padding: 8px 16px;
+      color: #991B1B; 
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    @keyframes popInSmooth {
+      from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .access-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -222,45 +293,18 @@
       padding: 18px 20px;
       border-radius: 50px;
       text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: 0 6px 16px rgba(0,0,0,0.04);
       text-align: center;
     }
 
-    .btn-access.dreamlab {
-      background: var(--primary);
-      color: #FFFFFF;
-      border: 2px solid var(--primary);
-    }
+    .btn-access.dreamlab { background: var(--primary); color: #FFFFFF; border: 2px solid var(--primary); }
+    .btn-access.antologia { background: #FFFFFF; color: var(--primary); border: 2px solid var(--primary); }
+    .btn-access:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 14px 28px rgba(0,0,0,0.12); }
 
-    .btn-access.antologia {
-      background: #FFFFFF;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
+    .btn-title { font-family: var(--font-title); font-size: 1.25rem; font-weight: 800; }
+    .btn-sub { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-top: 3px; opacity: 0.85; }
 
-    .btn-access:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-    }
-
-    .btn-title {
-      font-family: var(--font-title);
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    .btn-sub {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      margin-top: 3px;
-      opacity: 0.85;
-    }
-
-    /* MÓDULOS INTERACTIVOS */
     .interactive-section {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -275,22 +319,19 @@
       padding: 24px;
       text-align: center;
       box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
-    .interactive-card h3 {
-      font-family: var(--font-title);
-      font-size: 1.25rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
+    .interactive-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.06); border-color: var(--accent); }
+    .interactive-card h3 { font-family: var(--font-title); font-size: 1.25rem; color: var(--primary); margin-bottom: 8px; }
 
-    /* CONTENEDOR DEL LLAVERO */
     .keychain-trigger-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
       margin: 15px 0 10px 0;
+      user-select: none;
     }
 
     .ring-button {
@@ -299,13 +340,13 @@
       border-radius: 50%;
       background: #FFFFFF;
       border: 3.5px solid var(--accent);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
       overflow: hidden;
-      position: relative;
+      transform-origin: top center;
+      transition: box-shadow 0.3s ease;
     }
 
     .ring-button img {
@@ -314,12 +355,24 @@
       object-fit: contain;
       object-position: center 62%;
       transform: scale(1.4);
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
     }
 
-    .keychain-trigger-container:hover .ring-button img {
-      transform: scale(1.52);
+    .ring-button.swing-physics {
+      animation: pendulum 0.9s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
     }
+
+    @keyframes pendulum {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(-18deg) translateY(-2px); }
+      40% { transform: rotate(14deg); }
+      60% { transform: rotate(-8deg); }
+      80% { transform: rotate(4deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .keychain-trigger-container:hover .ring-button { box-shadow: 0 18px 36px rgba(0,0,0,0.18); }
+    .keychain-trigger-container:hover .ring-button img { transform: scale(1.58) rotate(4deg); }
 
     .trigger-label {
       display: inline-block;
@@ -333,82 +386,33 @@
       border-radius: 50px;
       margin-top: 14px;
       text-transform: uppercase;
+      transition: all 0.3s ease;
     }
 
-    .keys-drawer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
-      opacity: 0;
-      text-align: left;
+    .keychain-trigger-container:hover .trigger-label {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
     }
 
-    .keys-drawer.open {
-      max-height: 400px;
-      opacity: 1;
-      margin-top: 16px;
-    }
-
-    .key-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      background: var(--bg-soft);
-      border: 1px solid var(--card-border);
-      border-radius: 50px;
-      margin-bottom: 8px;
-      font-size: 0.8rem;
-    }
-
-    .key-code {
-      font-family: monospace;
-      font-weight: 800;
-      background: #FFFFFF;
-      padding: 4px 10px;
-      border-radius: 50px;
-      border: 1px dashed var(--accent);
-      color: var(--primary);
-    }
-
-    /* TICKET / PASES DE SALIDA */
-    .ticket-container {
-      margin: 16px 0;
-    }
+    .ticket-container { margin: 16px 0; user-select: none; perspective: 800px; }
 
     .ticket-main {
       background: linear-gradient(135deg, #FFFFFF 0%, var(--bg-soft) 100%);
       border: 2px dashed var(--accent);
       border-radius: 20px;
       display: flex;
-      overflow: hidden;
+      overflow: visible;
+      position: relative;
       box-shadow: 0 6px 16px rgba(0,0,0,0.04);
     }
 
-    .ticket-body {
-      padding: 16px 18px;
-      flex: 1;
-      text-align: left;
-    }
-
-    .ticket-head {
-      font-size: 0.62rem;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-
-    .ticket-title {
-      font-family: var(--font-title);
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-top: 2px;
-    }
+    .ticket-body { padding: 16px 18px; flex: 1; text-align: left; }
+    .ticket-head { font-size: 0.62rem; font-weight: 800; letter-spacing: 1.2px; color: var(--accent); text-transform: uppercase; }
+    .ticket-title { font-family: var(--font-title); font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-top: 2px; }
 
     .ticket-stub {
-      width: 75px;
+      width: 85px;
       background: var(--primary);
       color: #FFFFFF;
       display: flex;
@@ -417,7 +421,24 @@
       align-items: center;
       cursor: pointer;
       border-left: 2px dashed #FFFFFF;
-      transition: background 0.2s;
+      border-radius: 0 18px 18px 0;
+      transition: background 0.3s ease;
+      transform-origin: top right;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ticket-stub:hover { background: var(--accent); }
+
+    .ticket-stub.tearing-anim {
+      animation: tearOffPhysics 0.75s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+    }
+
+    @keyframes tearOffPhysics {
+      0% { transform: rotate(0deg) translateX(0); opacity: 1; }
+      20% { transform: rotate(8deg) translateX(6px) translateY(2px); }
+      50% { transform: rotate(28deg) translateX(30px) translateY(15px); opacity: 0.8; }
+      100% { transform: rotate(55deg) translateX(90px) translateY(60px); opacity: 0; }
     }
 
     .stub-text {
@@ -429,30 +450,139 @@
       text-transform: uppercase;
     }
 
-    .passes-drawer {
+    .keys-drawer, .passes-drawer {
       max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+      overflow-y: auto;
+      transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
       opacity: 0;
       text-align: left;
+      padding-right: 4px;
+      perspective: 600px;
     }
 
-    .passes-drawer.open {
-      max-height: 400px;
+    .keys-drawer.open, .passes-drawer.open {
+      max-height: 420px;
       opacity: 1;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
-    .pass-item {
-      padding: 10px 16px;
-      background: var(--bg-soft);
-      border-left: 4px solid var(--primary);
-      border-radius: 12px;
-      margin-bottom: 8px;
-      font-size: 0.78rem;
+    .keys-drawer::-webkit-scrollbar, .passes-drawer::-webkit-scrollbar { width: 6px; }
+    .keys-drawer::-webkit-scrollbar-thumb, .passes-drawer::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 10px;
     }
 
-    /* FOOTER */
+    @keyframes dropIn3D {
+      0% {
+        opacity: 0;
+        transform: perspective(500px) rotateX(-65deg) translateY(-25px) scale(0.85);
+      }
+      65% {
+        transform: perspective(500px) rotateX(12deg) translateY(2px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(500px) rotateX(0deg) translateY(0) scale(1);
+      }
+    }
+
+    .key-row, .pass-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-radius: 50px;
+      margin: 0 auto 10px auto;
+      font-size: 0.8rem;
+      opacity: 0;
+      transform-origin: top center;
+      animation: dropIn3D 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .pass-item { border-radius: 16px; }
+
+    .key-row.locked, .pass-item.locked {
+      width: 85%;
+      background: #F1F5F9;
+      border: 1.5px dashed #94A3B8;
+      color: #64748B;
+      box-shadow: none;
+    }
+
+    .key-row.locked .key-code {
+      background: #CBD5E1;
+      border: 1px dashed #94A3B8;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .pass-item.locked { border-left: 5px dashed #94A3B8; }
+
+    .key-row.unlocked, .pass-item.unlocked {
+      width: 100%;
+      background: linear-gradient(135deg, #FFFDF0 0%, #FEF9C3 100%);
+      border: 1.5px solid #D4AF37;
+      color: #713F12;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.28), 0 0 12px rgba(234, 179, 8, 0.2);
+    }
+
+    .key-row.unlocked:hover, .pass-item.unlocked:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.38), 0 0 16px rgba(234, 179, 8, 0.3);
+    }
+
+    .key-row.unlocked .key-code {
+      background: #FEF08A;
+      border: 1.5px solid #CA8A04;
+      color: #854D0E;
+      font-weight: 800;
+      box-shadow: 0 0 8px rgba(202, 138, 4, 0.3);
+      user-select: all;
+    }
+
+    .pass-item.unlocked { border-left: 6px solid #D4AF37; }
+
+    .scratch-container {
+      position: relative;
+      width: 135px;
+      height: 36px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .scratch-secret {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FEF08A;
+      color: #854D0E;
+      font-family: monospace;
+      font-weight: 800;
+      font-size: 0.85rem;
+      border: 1.5px dashed #CA8A04;
+      border-radius: 8px;
+      user-select: all;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .scratch-canvas:active { cursor: grabbing; }
+
     .footer-bar {
       border-top: 1px solid var(--card-border);
       padding-top: 16px;
@@ -465,76 +595,19 @@
       gap: 10px;
     }
 
-    .author-name {
-      font-weight: 700;
-      color: var(--primary);
-    }
+    .author-name { font-weight: 700; color: var(--primary); }
 
-    /* REGLAS RESPONSIVAS MÓVIL */
     @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      .hub-card {
-        padding: 24px 16px;
-        border-radius: 20px;
-      }
-
-      .hub-card::before {
-        top: 6px; left: 6px; right: 6px; bottom: 6px;
-        border-radius: 14px;
-      }
-
-      .header-top {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .institution-top {
-        text-align: center;
-      }
-
-      .control-panel,
-      .access-actions,
-      .interactive-section {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .ring-button {
-        width: 120px;
-        height: 120px;
-      }
-
-      .ring-button img {
-        object-position: center 60%;
-        transform: scale(1.35);
-      }
-
-      .ticket-main {
-        flex-direction: column;
-      }
-
-      .ticket-stub {
-        width: 100%;
-        height: 40px;
-        border-left: none;
-        border-top: 2px dashed #FFFFFF;
-      }
-
-      .stub-text {
-        writing-mode: horizontal-tb;
-        transform: none;
-      }
-
-      .key-row {
-        flex-direction: column;
-        gap: 6px;
-        text-align: center;
-        border-radius: 16px;
-      }
+      body { padding: 10px; }
+      .hub-card { padding: 24px 16px; border-radius: 20px; }
+      .header-top { flex-direction: column; text-align: center; }
+      .control-panel, .access-actions, .interactive-section { grid-template-columns: 1fr; }
+      .ticket-main { flex-direction: column; }
+      .ticket-stub { width: 100%; height: 42px; border-left: none; border-top: 2px dashed #FFFFFF; border-radius: 0 0 18px 18px; }
+      .stub-text { writing-mode: horizontal-tb; transform: none; }
+      .key-row.locked, .pass-item.locked { width: 90%; }
+      .student-banner { flex-direction: column; align-items: flex-start; }
+      .student-banner .status-tag { margin-left: 0; }
     }
   </style>
 </head>
@@ -542,7 +615,6 @@
 
   <div class="hub-card">
     
-    <!-- Encabezado Institucional -->
     <header class="header-top">
       <div class="brand-top">Portal de Accesos</div>
       <div class="institution-top">
@@ -551,14 +623,12 @@
       </div>
     </header>
 
-    <!-- Titular de la Asignatura -->
     <section class="hero-box">
       <div class="semestre-badge" id="badgeSemestre">Tercer Semestre • Eje Básico Disciplinar</div>
       <h1 class="hero-title" id="titleMateria">FISIOPATOLOGÍA</h1>
       <p class="hero-subtitle" id="subMateria">Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad</p>
     </section>
 
-    <!-- Control Panel -->
     <section class="control-panel">
       <div class="panel-group">
         <label for="selectMateria">Seleccionar Asignatura</label>
@@ -570,15 +640,15 @@
       </div>
 
       <div class="panel-group">
-  <label for="inputMatricula">Matrícula del Estudiante</label>
-  <div class="input-button-group">
-    <input type="text" id="inputMatricula" placeholder="Ej. 98001" onkeydown="alPresionarEnter(event)">
-    <button type="button" class="btn-buscar" onclick="sincronizarMatricula()">Buscar 🔍</button>
-  </div>
-</div>
+        <label for="inputMatricula">Matrícula del Estudiante</label>
+        <div class="input-button-group">
+          <input type="text" id="inputMatricula" placeholder="Ingresa tu matrícula..." onkeydown="alPresionarEnter(event)">
+          <button type="button" id="btnBuscar" class="btn-buscar" onclick="sincronizarMatricula()">Validar 🔍</button>
+        </div>
+        <div id="studentBanner" class="student-banner" style="display: none;"></div>
+      </div>
     </section>
 
-    <!-- Botones Principales con Enlaces Reales -->
     <section class="access-actions">
       <a href="https://abarrios-crypto.github.io/DreamLab/" target="_blank" class="btn-access dreamlab">
         <span class="btn-title">DREAMLAB</span>
@@ -591,41 +661,29 @@
       </a>
     </section>
 
-    <!-- Módulos Interactivos -->
     <section class="interactive-section">
       
       <!-- Llavero Digital -->
       <div class="interactive-card">
         <h3>Llavero Digital</h3>
-        <p style="font-size: 0.78rem; color: #64748B;">Presiona la argolla con el colgante de ADN para desplegar tus llaves obtenidas.</p>
+        <p style="font-size: 0.78rem; color: #64748B;">Toca la argolla para agitar el llavero y revelar tus llaves.</p>
 
-        <div class="keychain-trigger-container" onclick="toggleLlavero()">
-          <div class="ring-button">
+        <div class="keychain-trigger-container" onclick="accionLlavero()">
+          <div class="ring-button" id="ringBtn">
             <img src="https://i.imgur.com/JyCe6J0.gif" alt="Argolla Llavero ADN 3D">
           </div>
           <span class="trigger-label">🔑 ACCIONAR LLAVERO</span>
         </div>
 
         <div class="keys-drawer" id="drawerLlavero">
-          <div class="key-row">
-            <span>Tema 1: Introducción</span>
-            <span class="key-code">LIBRE</span>
-          </div>
-          <div class="key-row">
-            <span>Tema 2: Mecanismos Celulares</span>
-            <span class="key-code">FISIO2026</span>
-          </div>
-          <div class="key-row" style="opacity: 0.6;">
-            <span>Tema 3: Modelos Tisulares</span>
-            <span class="key-code">🔒 BLOQUEADO</span>
-          </div>
+          <div style="font-size:0.78rem; color:#94A3B8; padding: 12px 0; text-align: center;">Valida tu matrícula e interactúa con la argolla para consultar tus llaves.</div>
         </div>
       </div>
 
-      <!-- Tarjetero Digital (Pases de Salida) -->
+      <!-- Tarjetero Digital con Ráscale -->
       <div class="interactive-card">
         <h3>Pases de Salida</h3>
-        <p style="font-size: 0.78rem; color: #64748B;">Haz clic en la pestaña lateral desprendible para consultar tu tarjetero.</p>
+        <p style="font-size: 0.78rem; color: #64748B;">Presiona la pestaña lateral para desprender el talón de acceso.</p>
 
         <div class="ticket-container">
           <div class="ticket-main">
@@ -634,28 +692,19 @@
               <div class="ticket-title" id="ticketMateriaName">Fisiopatología</div>
               <div style="font-size: 0.75rem; color: #64748B; margin-top: 4px;">Colección de Acreditaciones de Lectura</div>
             </div>
-            <div class="ticket-stub" onclick="toggleTarjetero()">
-              <span class="stub-text">DESPRENDER</span>
+            <div class="ticket-stub" id="ticketStub" onclick="accionDesprender()">
+              <span class="stub-text" id="stubText">DESPRENDER</span>
             </div>
           </div>
         </div>
 
         <div class="passes-drawer" id="drawerTarjetero">
-          <div class="pass-item">
-            <b>🎟️ Pase Tema 1</b> — Acreditado (Fecha: 10/Ago/2026)
-          </div>
-          <div class="pass-item">
-            <b>🎟️ Pase Tema 2</b> — Acreditado (Fecha: 11/Ago/2026)
-          </div>
-          <div class="pass-item" style="opacity: 0.5; border-left-color: #94A3B8;">
-            <b>🎟️ Pase Tema 3</b> — Pendiente de lectura en Antología
-          </div>
+          <div style="font-size:0.78rem; color:#94A3B8; padding: 12px 0; text-align: center;">Valida tu matrícula y desprende la pestaña para consultar tus pases.</div>
         </div>
       </div>
 
     </section>
 
-    <!-- Pie de Página -->
     <footer class="footer-bar">
       <div>Diseñado y desarrollado por 💕: <span class="author-name">M.C. Adriana Alicia Barrios Rodríguez</span></div>
       <div><b>EDTECH & BIOMEDICAL LEARNING SYSTEMS</b></div>
@@ -664,143 +713,370 @@
   </div>
 
   <script>
-// 🌐 URL de tu Web App de Google Apps Script
-const URL_GAS = "https://script.google.com/macros/s/AKfycbzzgskaZuX8AF7ne7zn0cWsx-lh6BNn9l8E5FLUd8KOoBDa_CDz0SKShc5eXcsa3GyH/exec";
+    const URL_GAS = "https://script.google.com/macros/s/AKfycbzzgskaZuX8AF7ne7zn0cWsx-lh6BNn9l8E5FLUd8KOoBDa_CDz0SKShc5eXcsa3GyH/exec";
 
-const materiasData = {
-  fisiopatologia: {
-    semestre: "Tercer Semestre • Eje Básico Disciplinar",
-    titulo: "FISIOPATOLOGÍA",
-    subtitulo: "Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad",
-    antologiaText: "Lecturas de Fisiopatología",
-    antologiaUrl: "https://abarrios-crypto.github.io/Fisiopatolog-a_Antolog-a/"
-  },
-  patologia: {
-    semestre: "Noveno Semestre • Eje Profesionalizante",
-    titulo: "PATOLOGÍA CLÍNICA II",
-    subtitulo: "Diagnóstico de Laboratorio Hematológico y Metabólico",
-    antologiaText: "Lecturas de Patología Clínica II",
-    antologiaUrl: "#"
-  },
-  histologia: {
-    semestre: "Tercer Semestre • Eje Básico Disciplinar",
-    titulo: "HISTOLOGÍA HUMANA",
-    subtitulo: "Organización Microscópica, Tejidos Básicos y Microambiente Tisular",
-    antologiaText: "Lecturas de Histología Humana",
-    antologiaUrl: "#"
-  }
-};
+    const AudioFX = {
+      ctx: null,
+      lastScratchTime: 0,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+      },
+      playClick() {
+        this.init();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(420, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(140, this.ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.08);
+      },
+      playTear() {
+        this.init();
+        if (!this.ctx) return;
+        const bufferSize = this.ctx.sampleRate * 0.12;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1200;
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start();
+      },
+      playScratch() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        if (now - this.lastScratchTime < 0.06) return;
+        this.lastScratchTime = now;
 
-function actualizarMateria(materiaKey) {
-  document.body.setAttribute('data-materia', materiaKey);
-  const data = materiasData[materiaKey];
-  
-  document.getElementById('badgeSemestre').innerText = data.semestre;
-  document.getElementById('titleMateria').innerText = data.titulo;
-  document.getElementById('subMateria').innerText = data.subtitulo;
-  document.getElementById('subBtnAntologia').innerText = data.antologiaText;
-  document.getElementById('ticketMateriaName').innerText = data.titulo;
-
-  const linkAntologia = document.getElementById('linkAntologia');
-  linkAntologia.href = data.antologiaUrl;
-
-  if (data.antologiaUrl === "#") {
-    linkAntologia.setAttribute('target', '_self');
-    linkAntologia.onclick = function(e) {
-      e.preventDefault();
-      alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
+        const bufferSize = this.ctx.sampleRate * 0.04;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 2500;
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start();
+      }
     };
-  } else {
-    linkAntologia.setAttribute('target', '_blank');
-    linkAntologia.onclick = null;
-  }
-}
 
-function toggleLlavero() {
-  document.getElementById('drawerLlavero').classList.toggle('open');
-}
+    const materiasData = {
+      fisiopatologia: {
+        semestre: "Tercer Semestre • Eje Básico Disciplinar",
+        titulo: "FISIOPATOLOGÍA",
+        subtitulo: "Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad",
+        antologiaText: "Lecturas de Fisiopatología",
+        antologiaUrl: "https://abarrios-crypto.github.io/Fisiopatolog-a_Antolog-a/"
+      },
+      patologia: {
+        semestre: "Noveno Semestre • Eje Profesionalizante",
+        titulo: "PATOLOGÍA CLÍNICA II",
+        subtitulo: "Diagnóstico de Laboratorio Hematológico y Metabólico",
+        antologiaText: "Lecturas de Patología Clínica II",
+        antologiaUrl: "#"
+      },
+      histologia: {
+        semestre: "Tercer Semestre • Eje Básico Disciplinar",
+        titulo: "HISTOLOGÍA HUMANA",
+        subtitulo: "Organización Microscópica, Tejidos Básicos y Microambiente Tisular",
+        antologiaText: "Lecturas de Histología Humana",
+        antologiaUrl: "#"
+      }
+    };
 
-function toggleTarjetero() {
-  document.getElementById('drawerTarjetero').classList.toggle('open');
-}
+    function actualizarMateria(materiaKey) {
+      document.body.setAttribute('data-materia', materiaKey);
+      const data = materiasData[materiaKey];
+      
+      document.getElementById('badgeSemestre').innerText = data.semestre;
+      document.getElementById('titleMateria').innerText = data.titulo;
+      document.getElementById('subMateria').innerText = data.subtitulo;
+      document.getElementById('subBtnAntologia').innerText = data.antologiaText;
+      document.getElementById('ticketMateriaName').innerText = data.titulo;
 
-// 🔄 Sincronización en tiempo real con la matrícula
-// Detecta la tecla Enter en el cuadro de texto
-function alPresionarEnter(event) {
-  if (event.key === 'Enter') {
-    sincronizarMatricula();
-  }
-}
+      const linkAntologia = document.getElementById('linkAntologia');
+      linkAntologia.href = data.antologiaUrl;
 
-// Petición al servidor GAS al hacer clic o dar Enter
-async function sincronizarMatricula() {
-  const input = document.getElementById('inputMatricula');
-  const matricula = input.value.trim();
-
-  if (!matricula) {
-    alert("Por favor, ingresa tu matrícula antes de consultar.");
-    return;
-  }
-
-  try {
-    const url = `${URL_GAS}?accion=obtenerEstudiante&matricula=${encodeURIComponent(matricula)}`;
-    const respuesta = await fetch(url);
-    const datos = await respuesta.json();
-
-    if (datos.status === "success" && datos.estudiante) {
-      actualizarLlaveroYTarjetero(datos.estudiante);
-    } else {
-      alert("No se encontró información para la matrícula ingresada.");
-    }
-  } catch (error) {
-    console.error("Error al consultar la matrícula:", error);
-    alert("Ocurrió un error al conectar con el servidor.");
-  }
-}
-// 🎨 Renderizado dinámico de Llaves y Pases
-function actualizarLlaveroYTarjetero(estudiante) {
-  // 🔑 Actualizar Llavero Digital
-  const drawerLlavero = document.getElementById('drawerLlavero');
-  drawerLlavero.innerHTML = '';
-  
-  const scormData = estudiante.scorm || {};
-  Object.keys(scormData).forEach((temaKey) => {
-    const codigo = scormData[temaKey];
-    const estaLiberado = Boolean(codigo);
-    
-    const row = document.createElement('div');
-    row.className = 'key-row';
-    if (!estaLiberado) row.style.opacity = '0.6';
-
-    row.innerHTML = `
-      <span>${temaKey}</span>
-      <span class="key-code">${estaLiberado ? codigo : '🔒 BLOQUEADO'}</span>
-    `;
-    drawerLlavero.appendChild(row);
-  });
-
-  // 🎟️ Actualizar Tarjetero de Pases
-  const drawerTarjetero = document.getElementById('drawerTarjetero');
-  drawerTarjetero.innerHTML = '';
-
-  const pasesData = estudiante.pases || {};
-  Object.keys(pasesData).forEach((temaKey) => {
-    const codigoPase = pasesData[temaKey];
-    const acreditado = Boolean(codigoPase);
-
-    const passDiv = document.createElement('div');
-    passDiv.className = 'pass-item';
-    if (!acreditado) {
-      passDiv.style.opacity = '0.5';
-      passDiv.style.borderLeftColor = '#94A3B8';
+      if (data.antologiaUrl === "#") {
+        linkAntologia.setAttribute('target', '_self');
+        linkAntologia.onclick = function(e) {
+          e.preventDefault();
+          alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
+        };
+      } else {
+        linkAntologia.setAttribute('target', '_blank');
+        linkAntologia.onclick = null;
+      }
     }
 
-    passDiv.innerHTML = `
-      <b>🎟️ Pase ${temaKey}</b> — ${acreditado ? `Acreditado (${codigoPase})` : 'Pendiente de lectura'}
-    `;
-    drawerTarjetero.appendChild(passDiv);
-  });
-}
+    function accionLlavero() {
+      AudioFX.playClick();
+      const ring = document.getElementById('ringBtn');
+      ring.classList.remove('swing-physics');
+      void ring.offsetWidth;
+      ring.classList.add('swing-physics');
+
+      document.getElementById('drawerLlavero').classList.toggle('open');
+    }
+
+    function accionDesprender() {
+      AudioFX.playTear();
+      const stub = document.getElementById('ticketStub');
+      const drawer = document.getElementById('drawerTarjetero');
+
+      if (!drawer.classList.contains('open')) {
+        stub.classList.add('tearing-anim');
+        setTimeout(() => {
+          drawer.classList.add('open');
+          stub.style.visibility = 'hidden';
+        }, 450);
+      } else {
+        drawer.classList.remove('open');
+        stub.style.visibility = 'visible';
+        stub.classList.remove('tearing-anim');
+      }
+    }
+
+    function alPresionarEnter(event) {
+      if (event.key === 'Enter') sincronizarMatricula();
+    }
+
+    function extraerNumeroTema(cadena) {
+      const match = cadena.match(/\d+/);
+      return match ? parseInt(match[0], 10) : 0;
+    }
+
+    async function sincronizarMatricula() {
+      const input = document.getElementById('inputMatricula');
+      const btn = document.getElementById('btnBuscar');
+      const banner = document.getElementById('studentBanner');
+      const matricula = input.value.trim();
+
+      if (!matricula) {
+        banner.style.display = 'flex';
+        banner.className = 'student-banner error';
+        banner.innerHTML = '⚠️ Ingresa una matrícula para consultar.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Buscando... ⏳';
+
+      try {
+        const url = `${URL_GAS}?accion=obtenerEstudiante&matricula=${encodeURIComponent(matricula)}`;
+        const respuesta = await fetch(url);
+        const datos = await respuesta.json();
+
+        if (datos.status === "success" && datos.estudiante) {
+          banner.style.display = 'flex';
+          banner.className = 'student-banner success';
+          
+          const nombre = datos.estudiante.nombre.trim();
+          const primeraLetra = nombre.charAt(0);
+          const restoNombre = nombre.slice(1);
+
+          banner.innerHTML = `
+            <div class="welcome-container">
+              <span class="greeting-text">👋 Bienvenid@:</span>
+              <span class="student-name-editorial">
+                <span class="drop-cap">${primeraLetra}</span>${restoNombre}
+              </span>
+            </div>
+            <span class="status-tag">✓ Matrícula Validada</span>
+          `;
+          
+          actualizarLlaveroYTarjetero(datos.estudiante);
+        } else {
+          banner.style.display = 'flex';
+          banner.className = 'student-banner error';
+          banner.innerHTML = '❌ Matrícula no encontrada en la base de datos.';
+        }
+      } catch (error) {
+        console.error("Error al consultar la matrícula:", error);
+        banner.style.display = 'flex';
+        banner.className = 'student-banner error';
+        banner.innerHTML = '❌ Error de conexión con el servidor.';
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Validar 🔍';
+      }
+    }
+
+    function actualizarLlaveroYTarjetero(estudiante) {
+      const drawerLlavero = document.getElementById('drawerLlavero');
+      drawerLlavero.innerHTML = '';
+      
+      const scormData = estudiante.scorm || {};
+      const temasScorm = Object.keys(scormData).sort((a, b) => extraerNumeroTema(a) - extraerNumeroTema(b));
+
+      if (temasScorm.length === 0) {
+        drawerLlavero.innerHTML = '<div style="font-size:0.78rem; color:#94A3B8; text-align:center; padding: 12px 0;">No se encontraron claves registradas.</div>';
+      } else {
+        temasScorm.forEach((temaKey, index) => {
+          const codigo = scormData[temaKey];
+          const estaLiberado = Boolean(codigo);
+          
+          const row = document.createElement('div');
+          row.className = `key-row ${estaLiberado ? 'unlocked' : 'locked'}`;
+          row.style.animationDelay = `${index * 0.14}s`;
+
+          row.innerHTML = `
+            <span>${estaLiberado ? '✨' : '🔒'} <b>${temaKey}</b></span>
+            <span class="key-code">${estaLiberado ? codigo : 'BLOQUEADO'}</span>
+          `;
+          drawerLlavero.appendChild(row);
+        });
+      }
+
+      const drawerTarjetero = document.getElementById('drawerTarjetero');
+      drawerTarjetero.innerHTML = '';
+
+      const pasesData = estudiante.pases || {};
+      const temasPases = Object.keys(pasesData).sort((a, b) => extraerNumeroTema(a) - extraerNumeroTema(b));
+
+      if (temasPases.length === 0) {
+        drawerTarjetero.innerHTML = '<div style="font-size:0.78rem; color:#94A3B8; text-align:center; padding: 12px 0;">No se encontraron pases registrados.</div>';
+      } else {
+        temasPases.forEach((temaKey, index) => {
+          const codigoPase = pasesData[temaKey];
+          const acreditado = Boolean(codigoPase);
+
+          const passDiv = document.createElement('div');
+          passDiv.className = `pass-item ${acreditado ? 'unlocked' : 'locked'}`;
+          passDiv.style.animationDelay = `${index * 0.14}s`;
+
+          if (acreditado) {
+            passDiv.innerHTML = `
+              <span>🎟️ <b>Pase ${temaKey}</b> — Acreditado</span>
+              <div class="scratch-container">
+                <div class="scratch-secret" title="Haz clic para copiar">${codigoPase}</div>
+                <canvas class="scratch-canvas" width="135" height="36"></canvas>
+              </div>
+            `;
+            drawerTarjetero.appendChild(passDiv);
+
+            const canvas = passDiv.querySelector('.scratch-canvas');
+            const secretDiv = passDiv.querySelector('.scratch-secret');
+
+            inicializarRascale(canvas);
+
+            secretDiv.addEventListener('click', () => {
+              const textoCopiar = codigoPase;
+              navigator.clipboard.writeText(textoCopiar).then(() => {
+                AudioFX.playClick();
+                secretDiv.innerText = '¡COPIADO! 📋';
+                secretDiv.style.background = '#BBF7D0';
+                secretDiv.style.color = '#166534';
+                setTimeout(() => {
+                  secretDiv.innerText = textoCopiar;
+                  secretDiv.style.background = '#FEF08A';
+                  secretDiv.style.color = '#854D0E';
+                }, 1200);
+              });
+            });
+
+          } else {
+            passDiv.innerHTML = `
+              <span>🔒 <b>Pase ${temaKey}</b> — Pendiente de lectura</span>
+              <span style="font-family: monospace; font-size: 0.72rem; color: #94A3B8;">BLOQUEADO</span>
+            `;
+            drawerTarjetero.appendChild(passDiv);
+          }
+        });
+      }
+    }
+
+    function inicializarRascale(canvas) {
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+
+      const gradiente = ctx.createLinearGradient(0, 0, width, height);
+      gradiente.addColorStop(0, '#CBD5E1');
+      gradiente.addColorStop(0.5, '#94A3B8');
+      gradiente.addColorStop(1, '#64748B');
+      ctx.fillStyle = gradiente;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('✨ ¡RÁSCALE! ✨', width / 2, height / 2);
+
+      let rascando = false;
+      let deshabilitado = false;
+
+      function verificarPorcentaje() {
+        if (deshabilitado) return;
+        const imgData = ctx.getImageData(0, 0, width, height);
+        let pixelesBorrados = 0;
+        for (let i = 3; i < imgData.data.length; i += 4) {
+          if (imgData.data[i] === 0) pixelesBorrados++;
+        }
+        const porcentaje = (pixelesBorrados / (imgData.data.length / 4)) * 100;
+
+        if (porcentaje > 80%) {
+          deshabilitado = true;
+          canvas.style.opacity = '0';
+          canvas.style.pointerEvents = 'none';
+        }
+      }
+
+      function raspar(e) {
+        if (!rascando || deshabilitado) return;
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        AudioFX.playScratch();
+        verificarPorcentaje();
+      }
+
+      canvas.addEventListener('mousedown', (e) => { rascando = true; raspar(e); });
+      canvas.addEventListener('mousemove', raspar);
+      window.addEventListener('mouseup', () => { rascando = false; });
+
+      canvas.addEventListener('touchstart', (e) => { rascando = true; raspar(e); });
+      canvas.addEventListener('touchmove', raspar);
+      window.addEventListener('touchend', () => { rascando = false; });
+    }
   </script>
 </body>
 </html>
