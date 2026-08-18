@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Accesos Clases 🥼 |  Adriana Barrios 💞 </title>
+  <title>Portal Accesos Clases 🥼 |  Adriana Barrios 💞</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -197,7 +197,6 @@
     .btn-buscar:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
     .btn-buscar:active { transform: scale(0.95); }
 
-    /* ESTILO EDITORIAL Y ALINEACIÓN DE BANNER */
     .student-banner {
       margin-top: 14px;
       padding: 4px 0px;
@@ -259,7 +258,7 @@
       border-radius: 50px;
       border: 1px solid var(--card-border);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-      margin-left: auto; /* Empuja el chip siempre hacia la derecha */
+      margin-left: auto;
       white-space: nowrap;
     }
 
@@ -500,6 +499,14 @@
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    .key-code {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
     .pass-item { border-radius: 16px; }
 
     .key-row.locked, .pass-item.locked {
@@ -538,7 +545,7 @@
       color: #854D0E;
       font-weight: 800;
       box-shadow: 0 0 8px rgba(202, 138, 4, 0.3);
-      user-select: all;
+      cursor: pointer;
     }
 
     .pass-item.unlocked { border-left: 6px solid #D4AF37; }
@@ -565,7 +572,6 @@
       font-size: 0.85rem;
       border: 1.5px dashed #CA8A04;
       border-radius: 8px;
-      user-select: all;
       cursor: pointer;
       transition: background 0.3s ease, color 0.3s ease;
     }
@@ -954,6 +960,29 @@
             <span class="key-code">${estaLiberado ? codigo : 'BLOQUEADO'}</span>
           `;
           drawerLlavero.appendChild(row);
+
+          // EFECTO DE COPIADO EN LLAVES DIGITALES UNLOCKED
+          if (estaLiberado) {
+            const keyCodeSpan = row.querySelector('.key-code');
+            keyCodeSpan.setAttribute('title', 'Haz clic para copiar');
+
+            keyCodeSpan.addEventListener('click', () => {
+              navigator.clipboard.writeText(codigo).then(() => {
+                AudioFX.playClick();
+                keyCodeSpan.innerText = '¡COPIADO! 📋';
+                keyCodeSpan.style.background = '#BBF7D0';
+                keyCodeSpan.style.color = '#166534';
+                keyCodeSpan.style.borderColor = '#22C55E';
+
+                setTimeout(() => {
+                  keyCodeSpan.innerText = codigo;
+                  keyCodeSpan.style.background = '#FEF08A';
+                  keyCodeSpan.style.color = '#854D0E';
+                  keyCodeSpan.style.borderColor = '#CA8A04';
+                }, 1200);
+              });
+            });
+          }
         });
       }
 
