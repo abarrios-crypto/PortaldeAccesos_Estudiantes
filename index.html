@@ -639,69 +639,128 @@
   </div>
 
   <script>
-    const materiasData = {
-      fisiopatologia: {
-        semestre: "Tercer Semestre • Eje Básico Disciplinar",
-        titulo: "FISIOPATOLOGÍA",
-        subtitulo: "Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad",
-        antologiaText: "Lecturas de Fisiopatología",
-        antologiaUrl: "https://abarrios-crypto.github.io/Fisiopatolog-a_Antolog-a/"
-      },
-      patologia: {
-        semestre: "Noveno Semestre • Eje Profesionalizante",
-        titulo: "PATOLOGÍA CLÍNICA II",
-        subtitulo: "Diagnóstico de Laboratorio Hematológico y Metabólico",
-        antologiaText: "Lecturas de Patología Clínica II",
-        antologiaUrl: "#"
-      },
-      histologia: {
-        semestre: "Tercer Semestre • Eje Básico Disciplinar",
-        titulo: "HISTOLOGÍA HUMANA",
-        subtitulo: "Organización Microscópica, Tejidos Básicos y Microambiente Tisular",
-        antologiaText: "Lecturas de Histología Humana",
-        antologiaUrl: "#"
-      }
+// 🌐 URL de tu Web App de Google Apps Script
+const URL_GAS = "https://script.google.com/macros/s/AKfycbzzgskaZuX8AF7ne7zn0cWsx-lh6BNn9l8E5FLUd8KOoBDa_CDz0SKShc5eXcsa3GyH/exec";
+
+const materiasData = {
+  fisiopatologia: {
+    semestre: "Tercer Semestre • Eje Básico Disciplinar",
+    titulo: "FISIOPATOLOGÍA",
+    subtitulo: "Mecanismos Celulares, Moleculares y Sistémicos de la Enfermedad",
+    antologiaText: "Lecturas de Fisiopatología",
+    antologiaUrl: "https://abarrios-crypto.github.io/Fisiopatolog-a_Antolog-a/"
+  },
+  patologia: {
+    semestre: "Noveno Semestre • Eje Profesionalizante",
+    titulo: "PATOLOGÍA CLÍNICA II",
+    subtitulo: "Diagnóstico de Laboratorio Hematológico y Metabólico",
+    antologiaText: "Lecturas de Patología Clínica II",
+    antologiaUrl: "#"
+  },
+  histologia: {
+    semestre: "Tercer Semestre • Eje Básico Disciplinar",
+    titulo: "HISTOLOGÍA HUMANA",
+    subtitulo: "Organización Microscópica, Tejidos Básicos y Microambiente Tisular",
+    antologiaText: "Lecturas de Histología Humana",
+    antologiaUrl: "#"
+  }
+};
+
+function actualizarMateria(materiaKey) {
+  document.body.setAttribute('data-materia', materiaKey);
+  const data = materiasData[materiaKey];
+  
+  document.getElementById('badgeSemestre').innerText = data.semestre;
+  document.getElementById('titleMateria').innerText = data.titulo;
+  document.getElementById('subMateria').innerText = data.subtitulo;
+  document.getElementById('subBtnAntologia').innerText = data.antologiaText;
+  document.getElementById('ticketMateriaName').innerText = data.titulo;
+
+  const linkAntologia = document.getElementById('linkAntologia');
+  linkAntologia.href = data.antologiaUrl;
+
+  if (data.antologiaUrl === "#") {
+    linkAntologia.setAttribute('target', '_self');
+    linkAntologia.onclick = function(e) {
+      e.preventDefault();
+      alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
     };
+  } else {
+    linkAntologia.setAttribute('target', '_blank');
+    linkAntologia.onclick = null;
+  }
+}
 
-    function actualizarMateria(materiaKey) {
-      document.body.setAttribute('data-materia', materiaKey);
-      const data = materiasData[materiaKey];
-      
-      document.getElementById('badgeSemestre').innerText = data.semestre;
-      document.getElementById('titleMateria').innerText = data.titulo;
-      document.getElementById('subMateria').innerText = data.subtitulo;
-      document.getElementById('subBtnAntologia').innerText = data.antologiaText;
-      document.getElementById('ticketMateriaName').innerText = data.titulo;
+function toggleLlavero() {
+  document.getElementById('drawerLlavero').classList.toggle('open');
+}
 
-      // Actualización dinámica del enlace de Antología
-      const linkAntologia = document.getElementById('linkAntologia');
-      linkAntologia.href = data.antologiaUrl;
+function toggleTarjetero() {
+  document.getElementById('drawerTarjetero').classList.toggle('open');
+}
 
-      if (data.antologiaUrl === "#") {
-        linkAntologia.setAttribute('target', '_self');
-        linkAntologia.onclick = function(e) {
-          e.preventDefault();
-          alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
-        };
-      } else {
-        linkAntologia.setAttribute('target', '_blank');
-        linkAntologia.onclick = null;
-      }
+// 🔄 Sincronización en tiempo real con la matrícula
+async function sincronizarMatricula(val) {
+  const matricula = val.trim();
+  if (matricula.length < 4) return; // Espera a ingresar la matrícula completa
+
+  try {
+    const url = `${URL_GAS}?accion=obtenerEstudiante&matricula=${encodeURIComponent(matricula)}`;
+    const respuesta = await fetch(url);
+    const datos = await respuesta.json();
+
+    if (datos.status === "success" && datos.estudiante) {
+      actualizarLlaveroYTarjetero(datos.estudiante);
+    }
+  } catch (error) {
+    console.error("Error al consultar la matrícula en el servidor:", error);
+  }
+}
+
+// 🎨 Renderizado dinámico de Llaves y Pases
+function actualizarLlaveroYTarjetero(estudiante) {
+  // 🔑 Actualizar Llavero Digital
+  const drawerLlavero = document.getElementById('drawerLlavero');
+  drawerLlavero.innerHTML = '';
+  
+  const scormData = estudiante.scorm || {};
+  Object.keys(scormData).forEach((temaKey) => {
+    const codigo = scormData[temaKey];
+    const estaLiberado = Boolean(codigo);
+    
+    const row = document.createElement('div');
+    row.className = 'key-row';
+    if (!estaLiberado) row.style.opacity = '0.6';
+
+    row.innerHTML = `
+      <span>${temaKey}</span>
+      <span class="key-code">${estaLiberado ? codigo : '🔒 BLOQUEADO'}</span>
+    `;
+    drawerLlavero.appendChild(row);
+  });
+
+  // 🎟️ Actualizar Tarjetero de Pases
+  const drawerTarjetero = document.getElementById('drawerTarjetero');
+  drawerTarjetero.innerHTML = '';
+
+  const pasesData = estudiante.pases || {};
+  Object.keys(pasesData).forEach((temaKey) => {
+    const codigoPase = pasesData[temaKey];
+    const acreditado = Boolean(codigoPase);
+
+    const passDiv = document.createElement('div');
+    passDiv.className = 'pass-item';
+    if (!acreditado) {
+      passDiv.style.opacity = '0.5';
+      passDiv.style.borderLeftColor = '#94A3B8';
     }
 
-    function toggleLlavero() {
-      const drawer = document.getElementById('drawerLlavero');
-      drawer.classList.toggle('open');
-    }
-
-    function toggleTarjetero() {
-      const drawer = document.getElementById('drawerTarjetero');
-      drawer.classList.toggle('open');
-    }
-
-    function sincronizarMatricula(val) {
-      console.log("Matrícula ingresada:", val);
-    }
+    passDiv.innerHTML = `
+      <b>🎟️ Pase ${temaKey}</b> — ${acreditado ? `Acreditado (${codigoPase})` : 'Pendiente de lectura'}
+    `;
+    drawerTarjetero.appendChild(passDiv);
+  });
+}
   </script>
 </body>
 </html>
