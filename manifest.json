@@ -1,0 +1,21 @@
+{
+  "short_name": "PortalUAS",
+  "name": "Portal Accesos Clases - Biomedicina UAS",
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "theme_color": "#007bff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://unsplash.com",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://unsplash.com",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
