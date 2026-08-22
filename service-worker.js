@@ -1,5 +1,5 @@
 const CACHE_NAME = 'v1_cache_biomedicina';
-const urlsToCache = ['./', './index.html'];
+const urlsToCache = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
