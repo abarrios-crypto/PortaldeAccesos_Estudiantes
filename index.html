@@ -3,7 +3,7 @@
 <head>
 
 <!-- Enlace correcto al manifiesto real para Android e iOS -->
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?v=2">
 <meta name="theme-color" content="#007bff">
 
 <!-- Soporte para iPhone -->
@@ -1132,11 +1132,14 @@ body {
 <!-- Activador de la aplicación descargable -->
 <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then(reg => console.log('PWA Activada exitosamente'))
-            .catch(err => console.warn('Error con el Service Worker', err));
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('Service Worker registrado con éxito', reg.scope))
+                .catch(err => console.error('Fallo al registrar el Service Worker', err));
+        });
     }
 </script>
+
 
 </body>
 </html>
