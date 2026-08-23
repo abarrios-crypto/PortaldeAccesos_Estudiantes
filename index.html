@@ -841,29 +841,39 @@ body {
     };
 
     function actualizarMateria(materiaKey) {
-      document.body.setAttribute('data-materia', materiaKey);
-      const data = materiasData[materiaKey];
-      
-      document.getElementById('badgeSemestre').innerText = data.semestre;
-      document.getElementById('titleMateria').innerText = data.titulo;
-      document.getElementById('subMateria').innerText = data.subtitulo;
-      document.getElementById('subBtnAntologia').innerText = data.antologiaText;
-      document.getElementById('ticketMateriaName').innerText = data.titulo;
+  document.body.setAttribute('data-materia', materiaKey);
+  const data = materiasData[materiaKey];
 
-      const linkAntologia = document.getElementById('linkAntologia');
-      linkAntologia.href = data.antologiaUrl;
+  document.getElementById('badgeSemestre').innerText = data.semibold || data.semestre;
+  document.getElementById('titleMateria').innerText = data.titulo;
+  document.getElementById('subMateria').innerText = data.subtitulo;
+  document.getElementById('subBtnAntologia').innerText = data.antologiaText;
+  document.getElementById('ticketMateriaName').innerText = data.titulo;
 
-      if (data.antologiaUrl === "#") {
-        linkAntologia.setAttribute('target', '_self');
-        linkAntologia.onclick = function(e) {
-          e.preventDefault();
-          alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
-        };
-      } else {
-        linkAntologia.setAttribute('target', '_blank');
-        linkAntologia.onclick = function() { return true; }; // Permite la navegación normal
-      }
-    }
+  const linkAntologia = document.getElementById('linkAntologia');
+  linkAntologia.href = data.antologiaUrl;
+
+  // Limpiamos CUALQUIER evento onclick previo antes de evaluar la nueva materia
+  linkAntologia.onclick = null; 
+
+  if (data.antologiaUrl === "#") {
+    linkAntologia.setAttribute('target', '_self');
+    
+    // Asignamos la alerta interceptando el clic
+    linkAntologia.onclick = function(e) {
+      e.preventDefault();
+      alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
+    };
+  } else {
+    linkAntologia.setAttribute('target', '_blank');
+    
+    // Forzamos a que el clic devuelva true para que el navegador siga el enlace del href
+    linkAntologia.onclick = function() {
+      return true; 
+    };
+  }
+}
+
 
     function accionLlavero() {
       AudioFX.playClick();
