@@ -844,7 +844,7 @@ body {
   document.body.setAttribute('data-materia', materiaKey);
   const data = materiasData[materiaKey];
 
-  document.getElementById('badgeSemestre').innerText = data.semibold || data.semestre;
+  document.getElementById('badgeSemestre').innerText = data.semestre;
   document.getElementById('titleMateria').innerText = data.titulo;
   document.getElementById('subMateria').innerText = data.subtitulo;
   document.getElementById('subBtnAntologia').innerText = data.antologiaText;
@@ -853,26 +853,23 @@ body {
   const linkAntologia = document.getElementById('linkAntologia');
   linkAntologia.href = data.antologiaUrl;
 
-  // Limpiamos CUALQUIER evento onclick previo antes de evaluar la nueva materia
-  linkAntologia.onclick = null; 
-
   if (data.antologiaUrl === "#") {
     linkAntologia.setAttribute('target', '_self');
-    
-    // Asignamos la alerta interceptando el clic
-    linkAntologia.onclick = function(e) {
-      e.preventDefault();
-      alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
-    };
   } else {
     linkAntologia.setAttribute('target', '_blank');
-    
-    // Forzamos a que el clic devuelva true para que el navegador siga el enlace del href
-    linkAntologia.onclick = function() {
-      return true; 
-    };
   }
+
+  // Sobrescribimos por completo el evento de manera definitiva
+  linkAntologia.onclick = function(e) {
+    // Leemos la URL actual directamente del href del elemento en el momento del click
+    if (this.getAttribute('href') === "#") {
+      e.preventDefault();
+      alert("La Antología Digital para " + data.titulo + " estará disponible próximamente.");
+    }
+    // Si no es "#", no hace nada y el target '_blank' abrirá el PDF con normalidad
+  };
 }
+
 
 
     function accionLlavero() {
