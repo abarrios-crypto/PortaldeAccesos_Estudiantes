@@ -861,7 +861,7 @@ body {
         };
       } else {
         linkAntologia.setAttribute('target', '_blank');
-        linkAntologia.onclick = null;
+        linkAntologia.onclick = function() { return true; }; // Permite la navegación normal
       }
     }
 
